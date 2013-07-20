@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Hue Game</string>
+    <string name="nfc_not_supported_title">NFC Not Found</string>
+    <string name="nfc_not_supported_message">Looks like your device doesn\'t support NFC.</string>
+    <string name="nfc_not_enabled_title">NFC Not Enabled</string>
+    <string name="nfc_not_enabled_message">Please go to Settings and enable NFC.</string>
+    <string name="package_manager_not_found">PackageManager not found!</string>
+    <string name="wireless_settings_not_found">Wireless Settings not found!</string>
+    <string name="welcome">Welcome to Hue</string>
+    <string name="game_server">Game Server:</string>
+    <string name="game_server_hint">http://mygameserver.com</string>
+    <string name="connect">Connect</string>
+    <string name="game_server_empty">Server url cannot be empty</string>
+
+</resources>

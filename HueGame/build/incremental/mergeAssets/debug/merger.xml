@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merger>
+
+    <dataSet config="HueGameProjectVolleyUnspecified.aar" >
+        <source path="/Users/evelyne24/AndroidStudioProjects/HueGameProject/HueGame/build/exploded-bundles/HueGameProjectVolleyUnspecified.aar/assets" />
+    </dataSet>
+    <dataSet config="main" >
+        <source path="/Users/evelyne24/AndroidStudioProjects/HueGameProject/HueGame/src/main/assets" />
+    </dataSet>
+    <dataSet config="debug" >
+        <source path="/Users/evelyne24/AndroidStudioProjects/HueGameProject/HueGame/src/debug/assets" />
+    </dataSet>
+
+</merger>

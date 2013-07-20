@@ -1,0 +1,41 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:padding="@dimen/spacing_normal">
+
+    <TextView
+            style="@style/HeadingStyle"
+            android:id="@+id/welcome"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/welcome"
+            android:gravity="center"/>
+
+    <TextView
+            style="@style/SubtitleStyle"
+            android:id="@+id/server_url_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_large"
+            android:text="@string/game_server"/>
+
+    <EditText
+            android:id="@+id/server_url"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_normal"
+            android:hint="@string/game_server_hint"/>
+
+    <Button
+            style="@style/ButtonStyle"
+            android:id="@+id/connect"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/spacing_large"
+            android:text="@string/connect"/>
+
+
+</LinearLayout>
+<!-- From: file:/Users/evelyne24/AndroidStudioProjects/HueGameProject/HueGame/src/main/res/layout/activity_main.xml -->

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- From: file:/Users/evelyne24/AndroidStudioProjects/HueGameProject/HueGame/src/main/res/values-sw720dp-land/dimens.xml -->
+    <dimen name="spacing_normal">128dp</dimen>
+
+</resources>
