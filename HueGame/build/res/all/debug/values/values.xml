@@ -5,19 +5,27 @@
     <dimen name="spacing_large">32dp</dimen>
     <dimen name="spacing_normal">16dp</dimen>
     <dimen name="spacing_small">8dp</dimen>
+    <dimen name="square_size">300dp</dimen>
     <!-- From: file:/Users/evelyne24/AndroidStudioProjects/HueGameProject/HueGame/src/main/res/values/strings.xml -->
     <string name="app_name">Hue Game</string>
-    <string name="connect">Connect</string>
+    <string name="connect">Sign me in!</string>
     <string name="game_server">Game Server:</string>
-    <string name="game_server_empty">Server url cannot be empty</string>
+    <string name="game_server_empty_url">Ooops, empty server url</string>
+    <string name="game_server_error">Ouch, there\'s been a game server error :-(</string>
     <string name="game_server_hint">http://mygameserver.com</string>
+    <string name="game_server_invalid_url">Ooops, invalid server url</string>
+    <string name="loading">Hold on, the hamster is running...</string>
     <string name="nfc_not_enabled_message">Please go to Settings and enable NFC.</string>
     <string name="nfc_not_enabled_title">NFC Not Enabled</string>
-    <string name="nfc_not_supported_message">Looks like your device doesn\'t support NFC.</string>
+    <string name="nfc_not_supported_message">Looks like your device doesn\'t support NFC :-(</string>
     <string name="nfc_not_supported_title">NFC Not Found</string>
     <string name="package_manager_not_found">PackageManager not found!</string>
-    <string name="welcome">Welcome to Hue</string>
+    <string name="scan_your_tag">Please scan your bracelet NFC tag...</string>
+    <string name="welcome">Welcome to Hue :-)</string>
     <string name="wireless_settings_not_found">Wireless Settings not found!</string>
+    <string name="your_color_is">You\'ve joined the game! Your color is:</string>
+    <string name="your_score_is">Scanned! Your score is:</string>
+    <string name="your_tag_id_is">Sending your tag id to the server...</string>
     <!-- From: file:/Users/evelyne24/AndroidStudioProjects/HueGameProject/HueGame/src/main/res/values/styles.xml -->
     <style name="AppBaseTheme" parent="android:Theme.Light">
         <!--
@@ -40,12 +48,20 @@
         <item name="android:textSize">32sp</item>
     </style>
 
+    <style name="ScoreStyle">
+        <item name="android:textSize">36sp</item>
+        <item name="android:background">#c9c9c9</item>
+        <item name="android:minWidth">40dp</item>
+        <item name="android:gravity">center</item>
+    </style>
+
     <style name="SubtitleStyle">
         <item name="android:textSize">18sp</item>
     </style>
 
     <style name="TitleStyle">
-        <item name="android:textSize">24sp</item>
+        <item name="android:textSize">28sp</item>
+        <item name="android:paddingTop">@dimen/spacing_normal</item>
     </style>
 
 </resources>

@@ -261,7 +261,7 @@ public abstract class NfcDetectorActivity extends FragmentActivity {
 
         	nfcIntentDetected(intent, NfcAdapter.ACTION_NDEF_DISCOVERED);
         } else if (NfcAdapter.ACTION_TAG_DISCOVERED.equals(intent.getAction())) {
-        	Log.d(TAG, "Process TAG discovered action");
+        	Log.d(TAG, "Process APP_TAG discovered action");
 
         	nfcIntentDetected(intent, NfcAdapter.ACTION_TAG_DISCOVERED);
         } else  if (NfcAdapter.ACTION_TECH_DISCOVERED.equals(intent.getAction())) {

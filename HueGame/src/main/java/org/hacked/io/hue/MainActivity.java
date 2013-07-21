@@ -2,8 +2,7 @@ package org.hacked.io.hue;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.DialogInterface;
-import android.content.Intent;
+import android.content.*;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.nfc.NfcAdapter;
@@ -11,135 +10,149 @@ import android.nfc.Tag;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.LocalBroadcastManager;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.View;
-import android.widget.EditText;
 import android.widget.Toast;
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
-import org.json.JSONObject;
 import org.ndeftools.Message;
 import org.ndeftools.util.activity.NfcReaderActivity;
 
-import java.text.MessageFormat;
 import java.util.List;
 
+import static org.hacked.io.hue.Constants.*;
 
-public class MainActivity extends NfcReaderActivity implements View.OnClickListener {
+public class MainActivity extends NfcReaderActivity {
 
-    private static final String TAG = "HueGame";
-    private static final String DIALOG = "DIALOG";
-    private static final String CONNECT_URL = "/hello/{0}";
-    private EditText serverUrlInput;
-    private View connectButton;
-    private RequestQueue requestQueue;
+    public static final String ACTION_DEVICE_CONNECTED = "org.hacked.io.hue.ACTION_DEVICE_CONNECTED";
+    public static final String ACTION_SCANNER_READY = "org.hacked.io.hue.ACTION_SCANNER_READY";
+    public static final String ACTION_PLAYER_JOINED = "org.hacked.io.hue.ACTION_PLAYER_JOINED";
+
+    private SharedPreferences sharedPreferences;
+    private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent != null) {
+                String action = intent.getAction();
+                Bundle args = intent.getExtras();
+
+                if (ACTION_DEVICE_CONNECTED.equals(action)) {
+                    getSupportFragmentManager()
+                            .beginTransaction()
+                            .replace(android.R.id.content, ScannerFragment.getInstance(args))
+                            .commit();
+                } else if (ACTION_PLAYER_JOINED.equals(action)) {
+                    getSupportFragmentManager()
+                            .beginTransaction()
+                            .replace(android.R.id.content, ColourFragment.getInstance(args))
+                            .commit();
+                } else if(ACTION_SCANNER_READY.equals(action)) {
+                    getSupportFragmentManager()
+                            .beginTransaction()
+                            .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
+                            .replace(android.R.id.content, ScannerFragment.getInstance(args))
+                            .commit();
+                }
+            }
+        }
+    };
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
 
-        requestQueue = Volley.newRequestQueue(this);
-
-        serverUrlInput = (EditText) findViewById(R.id.server_url);
-        connectButton = findViewById(R.id.connect);
-        connectButton.setOnClickListener(this);
+        sharedPreferences = getSharedPreferences(PREFERENCES, MODE_PRIVATE);
+        showContentFragment(null);
 
         // Start detecting NDEF messages using foreground mode
         setDetecting(true);
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(ACTION_DEVICE_CONNECTED);
+        intentFilter.addAction(ACTION_PLAYER_JOINED);
+        intentFilter.addAction(ACTION_SCANNER_READY);
+        LocalBroadcastManager.getInstance(this).registerReceiver(broadcastReceiver, intentFilter);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(broadcastReceiver);
+    }
+
+    @Override
     protected void onNfcStateEnabled() {
-        Log.d(TAG, "NFC State enabled.");
+        Log.d(APP_TAG, "NFC State enabled.");
     }
 
     @Override
     protected void onNfcStateDisabled() {
-        Log.d(TAG, "NFC State disabled.");
-        showDialog(new NfcNotEnabledDialog());
+        Log.d(APP_TAG, "NFC State disabled.");
+        showDialogFragment(new NfcNotEnabledDialog());
     }
 
     @Override
     protected void onNfcStateChange(boolean enabled) {
-        Log.d(TAG, "NFC State changed: enabled = " + enabled);
+        Log.d(APP_TAG, "NFC State changed: enabled = " + enabled);
     }
 
     @Override
     protected void onNfcFeatureNotFound() {
-        Log.w(TAG, "NFC Not Supported.");
-        showDialog(new NfcNotSupportedDialog());
+        Log.w(APP_TAG, "NFC Not Supported.");
+        showDialogFragment(new NfcNotSupportedDialog());
     }
 
     @Override
     protected void readNdefMessage(Message message) {
-        Log.i(TAG, "Read NDEF message.");
+        Log.i(APP_TAG, "Read NDEF message.");
     }
 
     @Override
     protected void readEmptyNdefMessage() {
-        Log.i(TAG, "Read empty NDEF message.");
+        Log.i(APP_TAG, "Read empty NDEF message.");
     }
 
     @Override
     protected void readNonNdefMessage() {
-        Log.i(TAG, "Read non-NDEF message.");
+        Log.i(APP_TAG, "Read non-NDEF message.");
         Intent intent = getIntent();
         if (intent != null) {
             Tag tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
             if (tag != null) {
-                byte[] tagId = tag.getId();
-                if (tagId != null) {
-                    String tagStr = Utils.bytesToHex(tagId);
-                    Log.i(TAG, "TAG ID: " + tagStr);
+                byte[] bytes = tag.getId();
+                if (bytes != null) {
+                    String tagId = Utils.bytesToHex(bytes);
+                    Log.i(APP_TAG, "NFC Tag Id: " + tagId);
+                    showContentFragment(tagId);
                 }
             }
         }
     }
 
-    // TODO File a bug in Volley when the url is not valid it throws NPE!!!
-    @Override
-    public void onClick(View view) {
-        if (connectButton == view) {
-            String serverUrl = serverUrlInput.getText().toString();
-            String deviceId = Utils.getDeviceId(this);
-
-            if (TextUtils.isEmpty(serverUrl)) {
-                serverUrlInput.setError(getString(R.string.game_server_empty));
-            } else if (TextUtils.isEmpty(deviceId)) {
-                Log.e(TAG, "Device ID is empty!");
-            } else {
-                String url = serverUrl + MessageFormat.format(CONNECT_URL, deviceId);
-                Log.d(TAG, "POST to " + url);
-                JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, null, new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        Log.d(TAG, "Response OK: " + response.toString());
-                    }
-                }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.e(TAG, "Response ERROR: " + error.getStackTrace());
-                    }
-                });
-                requestQueue.add(request);
-            }
-        }
+    private boolean isFirstTimeRun() {
+        return TextUtils.isEmpty(sharedPreferences.getString(KEY_DEVICE_ID, null));
     }
 
-    private void showDialog(DialogFragment dialogFragment) {
+    private void showContentFragment(String tagId) {
+        Bundle args = new Bundle();
+        args.putString(EXTRA_TAG_ID, tagId);
+        Fragment fragment = isFirstTimeRun() ? ConnectFragment.getInstance(args) : ScannerFragment.getInstance(args);
+        getSupportFragmentManager().beginTransaction().replace(android.R.id.content, fragment).commit();
+    }
+
+    private void showDialogFragment(DialogFragment dialogFragment) {
         FragmentManager fm = getSupportFragmentManager();
-        DialogFragment prevDialogFragment = (DialogFragment) fm.findFragmentByTag(DIALOG);
+        DialogFragment prevDialogFragment = (DialogFragment) fm.findFragmentByTag(TAG_DIALOG);
         if (prevDialogFragment != null) {
             prevDialogFragment.dismiss();
         }
-        dialogFragment.show(fm, DIALOG);
+        dialogFragment.show(fm, TAG_DIALOG);
     }
 
     public static class NfcNotSupportedDialog extends DialogFragment {
