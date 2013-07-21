@@ -23,5 +23,6 @@
     <string name="your_color_is">You\'ve joined the game! Your color is:</string>
     <string name="your_tag_id_is">Sending your tag id to the server...</string>
     <string name="your_score_is">Scanned! Your score is:</string>
+    <string name="menu_reset">Reset</string>
 
 </resources>

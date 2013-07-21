@@ -88,6 +88,8 @@
                 </string>
                 <string name="nfc_not_enabled_message" >Please go to Settings and enable NFC.
                 </string>
+                <string name="menu_reset" >Reset
+                </string>
                 <string name="welcome" >Welcome to Hue :-)
                 </string>
                 <string name="game_server_hint" >http://mygameserver.com
@@ -223,6 +225,26 @@ center
                 path="/Users/evelyne24/AndroidStudioProjects/HueGameProject/HueGame/src/main/res/raw/scan.mp3"
                 qualifiers=""
                 type="raw" />
+            <file
+                name="main_menu"
+                path="/Users/evelyne24/AndroidStudioProjects/HueGameProject/HueGame/src/main/res/menu/main_menu.xml"
+                qualifiers=""
+                type="menu" />
+            <file
+                name="ic_action_reload"
+                path="/Users/evelyne24/AndroidStudioProjects/HueGameProject/HueGame/src/main/res/drawable-hdpi/ic_action_reload.png"
+                qualifiers="hdpi"
+                type="drawable" />
+            <file
+                name="ic_action_reload"
+                path="/Users/evelyne24/AndroidStudioProjects/HueGameProject/HueGame/src/main/res/drawable-mdpi/ic_action_reload.png"
+                qualifiers="mdpi"
+                type="drawable" />
+            <file
+                name="ic_action_reload"
+                path="/Users/evelyne24/AndroidStudioProjects/HueGameProject/HueGame/src/main/res/drawable-xhdpi/ic_action_reload.png"
+                qualifiers="xhdpi"
+                type="drawable" />
         </source>
         <source path="/Users/evelyne24/AndroidStudioProjects/HueGameProject/HueGame/build/res/rs/debug" />
     </dataSet>

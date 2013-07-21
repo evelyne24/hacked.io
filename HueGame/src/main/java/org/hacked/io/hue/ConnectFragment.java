@@ -120,14 +120,13 @@ public class ConnectFragment extends BaseFragment implements View.OnClickListene
             }
         });
 
-        onDeviceConnectSuccess();
-
-        //requestQueue.add(request);
+        requestQueue.add(request);
     }
 
     private void onDeviceConnectSuccess() {
-        connectButton.setEnabled(true);
         showLoadingFragment(false);
+        connectButton.setEnabled(true);
+
 
         final SharedPreferences sharedPreferences = getActivity().getSharedPreferences(PREFERENCES, Context.MODE_PRIVATE);
         sharedPreferences.edit().putString(KEY_SERVER_URL, baseServerUrl).commit();
@@ -139,8 +138,9 @@ public class ConnectFragment extends BaseFragment implements View.OnClickListene
     }
 
     private void onDeviceConnectError() {
-        connectButton.setEnabled(true);
         showLoadingFragment(false);
+        connectButton.setEnabled(true);
+
         Toast.makeText(getActivity(), R.string.game_server_error, Toast.LENGTH_LONG).show();
     }
 

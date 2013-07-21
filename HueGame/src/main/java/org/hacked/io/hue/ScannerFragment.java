@@ -31,7 +31,6 @@ public class ScannerFragment extends BaseFragment {
     private static final String SEND_TAG_URL = "/tag";
 
     private TextView scannerTextView;
-    private SoundPools soundPools;
 
     public static ScannerFragment getInstance(Bundle args) {
         ScannerFragment fragment = new ScannerFragment();
@@ -54,8 +53,6 @@ public class ScannerFragment extends BaseFragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        //loadSounds();
-
         String tagId = getArguments().getString(EXTRA_TAG_ID);
         if (!TextUtils.isEmpty(tagId)) {
             scannerTextView.setText(getString(R.string.your_tag_id_is, tagId));
@@ -63,29 +60,6 @@ public class ScannerFragment extends BaseFragment {
         } else {
             scannerTextView.setText(R.string.scan_your_tag);
         }
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        soundPools.onResume();
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        soundPools.onPause();
-    }
-
-    private void loadSounds() {
-        soundPools = new SoundPools();
-        soundPools.loadSound(getActivity(), R.raw.scan);
-        soundPools.loadSound(getActivity(), R.raw.wrong);
-    }
-
-
-    private void playSound(int soundId) {
-        soundPools.playSound(getActivity(), soundId);
     }
 
     private void doSendTagId(String tagId) {
@@ -101,7 +75,6 @@ public class ScannerFragment extends BaseFragment {
                 @Override
                 public void onResponse(JSONObject response) {
                     Log.d(APP_TAG, "Response OK: " + response.toString());
-
                     onTagScannedSuccess(response);
                 }
             }, new Response.ErrorListener() {
@@ -112,13 +85,7 @@ public class ScannerFragment extends BaseFragment {
                 }
             });
 
-            //requestQueue.add(request);
-
-            JSONObject fakeJson = new JSONObject();
-            fakeJson.put(JSON_TYPE, "score");
-            //fakeJson.put(JSON_DATA, "12");
-            fakeJson.put(JSON_DATA, "#ff0000");
-            onTagScannedSuccess(fakeJson);
+            requestQueue.add(request);
 
         } catch (JSONException e) {
             Log.e(APP_TAG, "JSON malformed!", e);
@@ -144,11 +111,9 @@ public class ScannerFragment extends BaseFragment {
                onNewUserJoined(data);
             }
             else  if(TYPE_EXISTING_USER.equals(type)) {
-                //playSound(R.raw.scan);
                 onScannerReady();
             }
             else if(TYPE_ERROR.equals(type)) {
-                //playSound(R.raw.wrong);
                 onScannerReady();
             }
 

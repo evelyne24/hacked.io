@@ -15,6 +15,7 @@
     <string name="game_server_hint">http://mygameserver.com</string>
     <string name="game_server_invalid_url">Ooops, invalid server url</string>
     <string name="loading">Hold on, the hamster is running...</string>
+    <string name="menu_reset">Reset</string>
     <string name="nfc_not_enabled_message">Please go to Settings and enable NFC.</string>
     <string name="nfc_not_enabled_title">NFC Not Enabled</string>
     <string name="nfc_not_supported_message">Looks like your device doesn\'t support NFC :-(</string>

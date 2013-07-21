@@ -12,10 +12,11 @@ import android.provider.Settings;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.LocalBroadcastManager;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.Toast;
 import org.ndeftools.Message;
 import org.ndeftools.util.activity.NfcReaderActivity;
@@ -207,5 +208,27 @@ public class MainActivity extends NfcReaderActivity {
                     });
             return builder.create();
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_reset:
+                sharedPreferences.edit().remove(KEY_DEVICE_ID).remove(KEY_SERVER_URL).commit();
+                Bundle args = new Bundle();
+                args.putString(EXTRA_TAG_ID, null);
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(android.R.id.content, ConnectFragment.getInstance(args))
+                        .commit();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
