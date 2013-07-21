@@ -90,9 +90,9 @@
                 </string>
                 <string name="menu_reset" >Reset
                 </string>
-                <string name="welcome" >Welcome to Hue :-)
-                </string>
                 <string name="game_server_hint" >http://mygameserver.com
+                </string>
+                <string name="welcome" >Welcome to Hue :-)
                 </string>
                 <string name="app_name" >Hue Game
                 </string>

@@ -9,6 +9,7 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import static org.hacked.io.hue.Constants.*;
 
@@ -26,7 +27,7 @@ public class ColourFragment extends Fragment {
         return fragment;
     }
 
-    private View colourView;
+    private TextView colourView;
 
     private CountDownTimer countDownTimer = new CountDownTimer(DURATION, TICK) {
         @Override
@@ -50,7 +51,7 @@ public class ColourFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        colourView = view.findViewById(R.id.colour_square);
+        colourView = (TextView) view.findViewById(R.id.colour_square);
     }
 
     @Override
@@ -59,6 +60,8 @@ public class ColourFragment extends Fragment {
         Bundle args = getArguments();
         String hexColor = args.getString(EXTRA_SCANNED_COLOUR);
         colourView.setBackgroundColor(Color.parseColor(hexColor));
+        colourView.setText(args.getString(EXTRA_SCANNED_NAME));
+
         countDownTimer.start();
     }
 }

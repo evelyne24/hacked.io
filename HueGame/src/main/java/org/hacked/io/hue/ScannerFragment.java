@@ -3,8 +3,6 @@ package org.hacked.io.hue;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.media.AudioManager;
-import android.media.SoundPool;
 import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
 import android.text.TextUtils;
@@ -29,7 +27,6 @@ import static org.hacked.io.hue.Constants.*;
 public class ScannerFragment extends BaseFragment {
 
     private static final String SEND_TAG_URL = "/tag";
-
     private TextView scannerTextView;
 
     public static ScannerFragment getInstance(Bundle args) {
@@ -83,7 +80,8 @@ public class ScannerFragment extends BaseFragment {
                     Log.e(APP_TAG, "Response ERROR: " + error.getMessage());
                     onTagScanError();
                 }
-            });
+            }
+            );
 
             requestQueue.add(request);
 
@@ -93,7 +91,7 @@ public class ScannerFragment extends BaseFragment {
 
     }
 
-    private JSONObject buildPayload(String tagId, String deviceId) throws JSONException{
+    private JSONObject buildPayload(String tagId, String deviceId) throws JSONException {
         JSONObject json = new JSONObject();
         json.put(JSON_TAG_ID, tagId);
         json.put(JSON_DEVICE_ID, deviceId);
@@ -105,15 +103,20 @@ public class ScannerFragment extends BaseFragment {
 
         try {
             String type = response.getString(JSON_TYPE);
-            String data = response.getString(JSON_DATA);
+            Bundle args = new Bundle();
+            args.putString(EXTRA_SCANNED_TYPE, type);
+            if (response.has(JSON_DATA)) {
+                args.putString(EXTRA_SCANNED_COLOUR, response.getString(JSON_DATA));
+            }
+            if (response.has(JSON_NAME)) {
+                args.putString(EXTRA_SCANNED_NAME, response.getString(JSON_NAME));
+            }
 
-            if(TYPE_NEW_USER.equals(type)) {
-               onNewUserJoined(data);
-            }
-            else  if(TYPE_EXISTING_USER.equals(type)) {
+            if (TYPE_NEW_USER.equals(type)) {
+                onNewUserJoined(args);
+            } else if (TYPE_EXISTING_USER.equals(type)) {
                 onScannerReady();
-            }
-            else if(TYPE_ERROR.equals(type)) {
+            } else if (TYPE_ERROR.equals(type)) {
                 onScannerReady();
             }
 
@@ -122,9 +125,9 @@ public class ScannerFragment extends BaseFragment {
         }
     }
 
-    private void onNewUserJoined(String data) {
+    private void onNewUserJoined(Bundle args) {
         Intent scannedIntent = new Intent(MainActivity.ACTION_PLAYER_JOINED);
-        scannedIntent.putExtra(EXTRA_SCANNED_COLOUR, data);
+        scannedIntent.putExtras(args);
         LocalBroadcastManager.getInstance(getActivity()).sendBroadcast(scannedIntent);
     }
 

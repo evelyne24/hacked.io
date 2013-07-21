@@ -15,9 +15,12 @@ public interface Constants {
     String JSON_DEVICE_ID = "device";
     String JSON_TYPE = "type";
     String JSON_DATA = "data";
+    String JSON_NAME = "name";
 
     String EXTRA_TAG_ID = "tag_id";
     String EXTRA_SCANNED_COLOUR = "scanned_colour";
+    String EXTRA_SCANNED_NAME = "scanned_name";
+    String EXTRA_SCANNED_TYPE = "scanned_type";
 
     String TYPE_NEW_USER = "new";
     String TYPE_EXISTING_USER = "score";
