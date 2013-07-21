@@ -27,8 +27,28 @@
                 qualifiers="xxhdpi"
                 type="drawable" />
             <file
-                name="activity_main"
-                path="/Users/evelyne24/AndroidStudioProjects/HueGameProject/HueGame/src/main/res/layout/activity_main.xml"
+                name="colour_fragment"
+                path="/Users/evelyne24/AndroidStudioProjects/HueGameProject/HueGame/src/main/res/layout/colour_fragment.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="loading_fragment"
+                path="/Users/evelyne24/AndroidStudioProjects/HueGameProject/HueGame/src/main/res/layout/loading_fragment.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="scanner_fragment"
+                path="/Users/evelyne24/AndroidStudioProjects/HueGameProject/HueGame/src/main/res/layout/scanner_fragment.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="score_fragment"
+                path="/Users/evelyne24/AndroidStudioProjects/HueGameProject/HueGame/src/main/res/layout/score_fragment.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="welcome_activity"
+                path="/Users/evelyne24/AndroidStudioProjects/HueGameProject/HueGame/src/main/res/layout/welcome_activity.xml"
                 qualifiers=""
                 type="layout" />
             <file
@@ -36,13 +56,11 @@
                 qualifiers="" >
                 <dimen name="spacing_large" >32dp
                 </dimen>
-                <dimen name="activity_horizontal_margin" >16dp
+                <dimen name="square_size" >300dp
                 </dimen>
                 <dimen name="spacing_small" >8dp
                 </dimen>
                 <dimen name="spacing_normal" >16dp
-                </dimen>
-                <dimen name="activity_vertical_margin" >16dp
                 </dimen>
             </file>
             <file
@@ -50,23 +68,39 @@
                 qualifiers="" >
                 <string name="nfc_not_supported_title" >NFC Not Found
                 </string>
-                <string name="nfc_not_enabled_message" >Please go to Settings and enable NFC.
+                <string name="game_server_error" >Ouch, there\'s been a game server error :-(
                 </string>
                 <string name="wireless_settings_not_found" >Wireless Settings not found!
                 </string>
-                <string name="welcome" >Welcome to Hue
+                <string name="nfc_not_supported_message" >Looks like your device doesn\'t support NFC :-(
+                </string>
+                <string name="your_tag_id_is" >Sending your tag id to the server...
+                </string>
+                <string name="game_server_invalid_url" >Ooops, invalid server url
+                </string>
+                <string name="your_score_is" >Scanned! Your score is:
+                </string>
+                <string name="package_manager_not_found" >PackageManager not found!
+                </string>
+                <string name="loading" >Hold on, the hamster is running...
+                </string>
+                <string name="your_color_is" >You\'ve joined the game! Your color is:
+                </string>
+                <string name="nfc_not_enabled_message" >Please go to Settings and enable NFC.
+                </string>
+                <string name="menu_reset" >Reset
                 </string>
                 <string name="game_server_hint" >http://mygameserver.com
                 </string>
-                <string name="game_server_empty" >Server url cannot be empty
+                <string name="welcome" >Welcome to Hue :-)
                 </string>
                 <string name="app_name" >Hue Game
                 </string>
-                <string name="nfc_not_supported_message" >Looks like your device doesn\'t support NFC.
+                <string name="scan_your_tag" >Please scan your bracelet NFC tag...
                 </string>
-                <string name="connect" >Connect
+                <string name="connect" >Sign me in!
                 </string>
-                <string name="package_manager_not_found" >PackageManager not found!
+                <string name="game_server_empty_url" >Ooops, empty server url
                 </string>
                 <string name="game_server" >Game Server:
                 </string>
@@ -77,9 +111,27 @@
                 path="/Users/evelyne24/AndroidStudioProjects/HueGameProject/HueGame/src/main/res/values/styles.xml"
                 qualifiers="" >
 
+                <style name="ScoreStyle" >
+                    <item name="android:textSize">
+36sp
+                    </item>
+                    <item name="android:background">
+#c9c9c9
+                    </item>
+                    <item name="android:minWidth">
+40dp
+                    </item>
+                    <item name="android:gravity">
+center
+                    </item>
+                </style>
+
                 <style name="TitleStyle" >
                     <item name="android:textSize">
-24sp
+28sp
+                    </item>
+                    <item name="android:paddingTop">
+@dimen/spacing_normal
                     </item>
                 </style>
 
@@ -130,8 +182,6 @@
                 qualifiers="sw720dp-land" >
                 <dimen name="spacing_normal" >128dp
                 </dimen>
-                <dimen name="activity_horizontal_margin" >128dp
-                </dimen>
             </file>
             <file
                 path="/Users/evelyne24/AndroidStudioProjects/HueGameProject/HueGame/src/main/res/values-v11/styles.xml"
@@ -160,6 +210,41 @@
                 path="/Users/evelyne24/AndroidStudioProjects/HueGameProject/HueGame/src/main/res/xml/nfc_tech_filter.xml"
                 qualifiers=""
                 type="xml" />
+            <file
+                name="connect_fragment"
+                path="/Users/evelyne24/AndroidStudioProjects/HueGameProject/HueGame/src/main/res/layout/connect_fragment.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="wrong"
+                path="/Users/evelyne24/AndroidStudioProjects/HueGameProject/HueGame/src/main/res/raw/wrong.mp3"
+                qualifiers=""
+                type="raw" />
+            <file
+                name="scan"
+                path="/Users/evelyne24/AndroidStudioProjects/HueGameProject/HueGame/src/main/res/raw/scan.mp3"
+                qualifiers=""
+                type="raw" />
+            <file
+                name="main_menu"
+                path="/Users/evelyne24/AndroidStudioProjects/HueGameProject/HueGame/src/main/res/menu/main_menu.xml"
+                qualifiers=""
+                type="menu" />
+            <file
+                name="ic_action_reload"
+                path="/Users/evelyne24/AndroidStudioProjects/HueGameProject/HueGame/src/main/res/drawable-hdpi/ic_action_reload.png"
+                qualifiers="hdpi"
+                type="drawable" />
+            <file
+                name="ic_action_reload"
+                path="/Users/evelyne24/AndroidStudioProjects/HueGameProject/HueGame/src/main/res/drawable-mdpi/ic_action_reload.png"
+                qualifiers="mdpi"
+                type="drawable" />
+            <file
+                name="ic_action_reload"
+                path="/Users/evelyne24/AndroidStudioProjects/HueGameProject/HueGame/src/main/res/drawable-xhdpi/ic_action_reload.png"
+                qualifiers="xhdpi"
+                type="drawable" />
         </source>
         <source path="/Users/evelyne24/AndroidStudioProjects/HueGameProject/HueGame/build/res/rs/debug" />
     </dataSet>

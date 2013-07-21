@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:padding="@dimen/spacing_normal"
+              android:gravity="center_horizontal">
+
+    <TextView
+            style="@style/TitleStyle"
+            android:id="@+id/colour_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/your_color_is"/>
+
+    <TextView
+            android:id="@+id/colour_square"
+            android:layout_width="@dimen/square_size"
+            android:layout_height="@dimen/square_size"
+            android:layout_marginTop="@dimen/spacing_normal"
+            android:gravity="center"
+            android:textSize="40sp"
+            android:textAllCaps="true"
+            android:textColor="#000000"
+            android:textStyle="bold"/>
+
+</LinearLayout><!-- From: file:/Users/evelyne24/AndroidStudioProjects/HueGameProject/HueGame/src/main/res/layout/colour_fragment.xml -->
