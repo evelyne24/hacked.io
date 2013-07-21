@@ -1,0 +1,5 @@
+{% for uid, light in model.lights.iteritems() %}
+  <span class="light" style="background: {{light.hex}}"></span>
+{% else %}
+<em>Add some lights before starting</em>
+{% endfor %}

@@ -1,0 +1,3 @@
+{% for bulb_id, bulb_name in bulbs %}
+<div>{{ bulb_id }}. {{ bulb_name }} <a href="/remove_bulb/{{bulb_id}}">remove</a></div>
+{% endfor %}

@@ -1,0 +1,204 @@
+<!doctype html>
+
+<style>
+  body {
+    background: #0d0d0d;
+    color: #DDE6CF;
+    font-family: Ubuntu;
+  }
+
+  .hidden{
+    visibility: hidden;
+  }
+
+  .back_gradient {
+    transition: opacity 25s;
+    -webkit-transition: opacity 25s;
+    position: fixed;
+    z-index: 1;
+  }
+
+  .player{
+    clear: both;
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+
+  .player .right{
+    float:right;
+
+  }
+
+  .bluebg{
+    background: -moz-radial-gradient(center, ellipse cover,  rgba(0,0,255,1) 0%, rgba(0,0,255,0) 60%); /* FF3.6+ */
+    background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,rgba(0,0,255,1)), color-stop(60%,rgba(0,0,255,0))); /* Chrome,Safari4+ */
+    background: -webkit-radial-gradient(center, ellipse cover,  rgba(0,0,255,1) 0%,rgba(0,0,255,0) 60%); /* Chrome10+,Safari5.1+ */
+    background: -o-radial-gradient(center, ellipse cover,  rgba(0,0,255,1) 0%,rgba(0,0,255,0) 60%); /* Opera 12+ */
+    background: -ms-radial-gradient(center, ellipse cover,  rgba(0,0,255,1) 0%,rgba(0,0,255,0) 60%); /* IE10+ */
+    background: radial-gradient(ellipse at center,  rgba(0,0,255,1) 0%,rgba(0,0,255,0) 60%); /* W3C */
+  }
+
+  .redbg{
+    background: -moz-radial-gradient(center, ellipse cover,  rgba(255,0,0,1) 0%, rgba(255,0,0,0) 60%); /* FF3.6+ */
+    background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,rgba(255,0,4,1)), color-stop(60%,rgba(255,0,4,0))); /* Chrome,Safari4+ */
+    background: -webkit-radial-gradient(center, ellipse cover,  rgba(255,0,4,1) 0%,rgba(255,0,4,0) 60%); /* Chrome10+,Safari5.1+ */
+    background: -o-radial-gradient(center, ellipse cover,  rgba(255,0,4,1) 0%,rgba(255,0,4,0) 60%); /* Opera 12+ */
+    background: -ms-radial-gradient(center, ellipse cover,  rgba(255,0,4,1) 0%,rgba(255,0,4,0) 60%); /* IE10+ */
+    background: radial-gradient(ellipse at center,  rgba(255,0,4,1) 0%,rgba(255,0,4,0) 60%); /* W3C */
+  }
+
+  .greenbg{
+    background: -moz-radial-gradient(center, ellipse cover,  rgba(0,255,0,1) 0%, rgba(,255,0,0) 60%); /* FF3.6+ */
+    background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,rgba(0,255,4,1)), color-stop(60%,rgba(0,255,4,0))); /* Chrome,Safari4+ */
+    background: -webkit-radial-gradient(center, ellipse cover,  rgba(0,255,4,1) 0%,rgba(0,255,4,0) 60%); /* Chrome10+,Safari5.1+ */
+    background: -o-radial-gradient(center, ellipse cover,  rgba(0,255,4,1) 0%,rgba(0,255,4,0) 60%); /* Opera 12+ */
+    background: -ms-radial-gradient(center, ellipse cover,  rgba(0,255,4,1) 0%,rgba(0,255,4,0) 60%); /* IE10+ */
+    background: radial-gradient(ellipse at center,  rgba(0,255,4,1) 0%,rgba(0,255,4,0) 60%); /* W3C */
+  }
+
+  .front {
+    width: 60%;
+    background: white;
+    margin-left: auto;
+    margin-top: 20px;
+    margin-right: auto;
+    color: #0d0d0d;
+    padding: 10px;
+    position: relative;
+    z-index: 10;
+    text-align: center;
+  }
+
+  .action_link{
+    background: #55a;
+    padding: 3px;
+    font-size: 14px;
+    color: white;
+    cursor: pointer;
+
+  }
+
+  .light{
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border: 1px solid black;
+    vertical-align: top;
+  }
+</style>
+<script src="/jquery.js"></script>
+
+<body>
+  <div id="bglight1" class="redbg back_gradient" style="opacity: 0.5; right: -400px; top: -400px; width: 800px; height: 800px;"></div>
+  <div id="bglight2" class="bluebg back_gradient" style="opacity: 0; left: -500px; bottom: -350px; width: 900px; height: 900px;"></div>
+  <div id="bglight3" class="greenbg back_gradient" style="opacity: 0.1; right: 000px; bottom: -400px; width: 760px; height: 760px;"></div>
+  <div class="front">
+    <h1>{{ gamename }} - <span id="game_state"></span></h1> 
+    
+    <span data-action="start_game" id="start_button" class="action_link hidden">Start Game</span>  
+
+    <div id="free_cont">
+      <h2>Available Lights</h2>  
+      <div id="free_bulbs"></div>  
+    </div>
+    <h2>Lights</h2>
+    <div id="lights"></div>
+    <!--<div>Add Phone: <input type="text" id="phone_uid"/><span data-action="add_phone" class="action_link">Add</span> </div>
+    <div>Pulse:  <input type="text" id="pulse_id"/><span data-action="pulse_light" class="action_link">Pulse</span></div>-->
+
+    <h2>Players</h2>
+    <div id="players"></div>
+      <!--Tag <input type="text" id="tu"/> on phone <input type="text" id="tpu"/> <span data-action="register_tag" class="action_link">Tag</span> -->
+    </dl>
+
+  </div>
+  <div id="hub_list" style="display:none">
+    <h1>FF</h1>
+  </div>
+</body>
+<script>
+
+$.postJSON = function(url, data, callback) {
+    return jQuery.ajax({
+        'type': 'POST',
+        'url': url,
+        'contentType': 'application/json',
+        'data': data,
+        'dataType': 'json',
+        'success': callback
+    });
+};
+
+function update() { 
+  $.get("/update", function(data) {
+    if(data.fail) {
+      window.location = "/";
+    }
+    if (data.need_hub) {
+      show_hub_list()
+    }
+    $("#lights").html(data.lights);
+    $("#players").html(data.players);
+    $("#game_state").html(data.state);
+    $("#free_bulbs").html(data.free_bulbs);
+    $("#start_button").toggleClass("hidden", !data.ready)
+  })
+}
+
+function show_hub_list() {
+
+  $("#hub_list").show();
+
+}
+
+$(function(){
+  setInterval(update, 500);
+
+  $.ajaxSetup ({
+      // Disable caching of AJAX responses
+      cache: false
+  });
+
+  function stop_reload(){
+    do_reload = false;
+  }
+
+  function add_phone(){
+    var val = $("#phone_uid").val();
+    $.get("/hello/" + val, function(data){
+      update();
+    })
+  }
+
+  function start_game() {
+    $.get("/start", function() {
+      update();
+    });
+  }
+
+  function register_tag() {
+    var tag = $("#tu").val();
+    var phone = $("#tpu").val();
+    $.postJSON("/tag", '{"device": "'+phone+'", "tag": "'+tag+'"}', function(data){
+      update();
+    })
+  }
+
+  $("[data-action]").click(function(){
+    var fun = {
+      add_phone: add_phone,
+      register_tag: register_tag,
+      start_game: start_game
+    }[$(this).attr("data-action")];
+    fun();
+  });
+
+  $(".redbg").css("opacity", "0.7");
+  $(".greenbg").css("opacity", "0.5");
+  $(".bluebg").css("opacity", "0.5");
+})
+
+</script>

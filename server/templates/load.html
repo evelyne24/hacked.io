@@ -1,0 +1,48 @@
+<!doctype html>
+
+<style>
+  body {
+    background: #0d0d0d;
+    color: #DDE6CF;
+    font-family: Ubuntu;
+  }
+
+  .hidden{
+    visibility: hidden;
+  }
+
+  .front {
+    width: 60%;
+    background: white;
+    margin-left: auto;
+    margin-top: 20px;
+    margin-right: auto;
+    color: #0d0d0d;
+    padding: 10px;
+    position: relative;
+    z-index: 10;
+    text-align: center;
+  }
+
+  .action_link{
+    background: #55a;
+    padding: 10px;
+    font-size: 15px;
+    margin: 2px;
+    display: block;
+    color: white;
+    cursor: pointer;
+
+  }
+</style>
+
+<body>
+  <div class="front">
+    <h1>{{ gamename }}</span></h1> 
+    <p>Choose Hub</p>
+    {% for hub in hubs %}
+    <a href="/set_hub/{{ hub }}" class="action_link">{{ hub}}</a>  
+    {% endfor %}
+
+  </div>
+</body>

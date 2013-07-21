@@ -1,0 +1,7 @@
+{% for player in players %}
+  <div class="player">
+  <div class="right">{{ player.score }}</b> <span class="light" style="background: {{player.hex}}"></div>
+    <b>{{ player.name }}</b>
+    
+  </div>
+{% endfor %}
